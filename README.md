@@ -140,8 +140,8 @@ cd csrf_attacker_frontend/python
 python -m pip install -r requirements.txt
 python -m uvicorn main:app --host localhost --port 4000
 ```
-2. Login On the original frontend server and then click on csrf attack button
-3. Logout on the original frontend server and then click on csrf attack button
+2. Login On the original frontend server at http://localhost:3000 and then click on csrf attack button on http://localhost:4000
+3. Logout on the original frontend server at http://localhost:3000 and then click on csrf attack button on http://localhost:4000
 
 ## Project Scope and Intent
 This project is designed to demonstrate:
