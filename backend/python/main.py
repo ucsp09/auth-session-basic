@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from api.user_api import user_api_router
 from api.login_api import login_api_router
+from api.resource_api import resource_api_router
 from core.bootstrap import startup_event_handler, shutdown_event_handler
+from core.middleware import validate_session_id_in_request
 from core.logger import Logger
 
 logger = Logger.get_logger(__name__)
@@ -26,6 +28,9 @@ logger.info("Including user API router.")
 app.include_router(user_api_router, prefix="/api/v1")
 logger.info("Including login API router.")
 app.include_router(login_api_router, prefix="/api/v1")
+logger.info("Including resource API router.")
+app.include_router(resource_api_router, prefix="/api/v1",
+                   dependencies=[Depends(validate_session_id_in_request)])
 
 # Add event handlers
 logger.info("Adding startup and shutdown event handlers.")

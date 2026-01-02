@@ -6,6 +6,7 @@ from core.logger import Logger
 from config.constants import DB_TYPE, SESSION_STORE_TYPE
 from fastapi import Depends
 from dao.user_dao import UserDao
+from dao.resource_dao import ResourceDao
 from typing import Optional  # Import Optional for Python 3.6 compatibility
 
 # ---- Module-level variables ----
@@ -66,6 +67,11 @@ def get_user_dao(db: BaseDB = Depends(get_db)) -> UserDao:
     logger.debug("Creating UserDao instance.")
     return UserDao(db)
 
+def get_resource_dao(db: BaseDB = Depends(get_db)) -> ResourceDao:
+    """Get an instance of ResourceDao with the provided DB dependency."""
+    logger.debug("Creating ResourceDao instance.")
+    return ResourceDao(db)
+
 # ---- Initialization and Cleanup ----
 async def startup_event_handler():
     """Initialize the core components during the app startup."""
@@ -108,3 +114,4 @@ async def shutdown_event_handler():
     except Exception as e:
         logger.exception(f"Failed to clean up core components during shutdown. Error: {e}")
         raise
+        
